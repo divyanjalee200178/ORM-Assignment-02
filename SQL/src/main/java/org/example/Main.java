@@ -18,23 +18,34 @@ public class Main {
 //        System.out.println(person.getIdCard());
 
 //-------------------------------all person---------------------------
-        NativeQuery query = session.createNativeQuery("select * from person");
+       /* NativeQuery query = session.createNativeQuery("select * from person");
         query.addEntity(Person.class);
         List<Person> list = query.list();
         for (Person person : list) {
             System.out.println(person);
         }
 
+        */
 
+        NativeQuery query=session.createNativeQuery("select * from Person where name=?1");
+        query.addEntity(Person.class);
+        query.setParameter(1,"Shehan");
+        Person person=(Person) query.uniqueResult();
+        System.out.println(person);
+
+//        Query query=session.createQuery("select id,name from Person where id=?1");
+//        query.setParameter(1,1);
+//        Person person=(Person) query.uniqueResult();
+//        System.out.println(person.getId()+","+person.getName());
 
 //-------------------------------insert--------------------------------
-       /* NativeQuery  query = session.createNativeQuery("insert into Person (id,address,name) values(?1,?2,?3)");
-        query.setParameter(1,4);
-        query.setParameter(2,"Kalutara");
-        query.setParameter(3,"Devid");
-        query.executeUpdate();
+//        NativeQuery  query = session.createNativeQuery("insert into Person (id,address,name) values(?1,?2,?3)");
+//        query.setParameter(1,6);
+//        query.setParameter(2,"Kalutara");
+//        query.setParameter(3,"Devid");
+//        query.executeUpdate();
 
-        */
+
 
 //---------------------------update-----------------------------------
        /* NativeQuery query1 = session.createNativeQuery("update Person set address=?1 where id = ?2");
@@ -52,15 +63,16 @@ public class Main {
         */
 
 //-----------------------join query----------------------------------
-      /*  NativeQuery query5=session.createNativeQuery("SELECT ic FROM IdCard ic RIGHT JOIN ic.person ic");
+      /* NativeQuery query5=session.createNativeQuery("select p.id,p.name from IdCard ic inner join Person p on ic.id = p.id");
         List<Object[]> list=query5.list();
         for (Object[] arr : list) {
-            String personName = (String) arr[0];
-            String idCardType = (String) arr[1];
-            System.out.println("Person Name: " + personName + ", ID Card Type: " + idCardType);
+            int id = (int) arr[0];
+            String personName = (String) arr[1];
+            System.out.println(personName + ", " + id);
         }
 
        */
+
 //-------------------------order by---------------------------------
        /* NativeQuery query6=session.createNativeQuery("from Person p order by p.id desc");
         List<Person> perlist=query6.list();

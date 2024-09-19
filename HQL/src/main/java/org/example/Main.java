@@ -14,9 +14,11 @@ public class Main {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction=session.beginTransaction();
 
-        Person person=session.get(Person.class ,1);
+        /*Person person=session.get(Person.class ,1);
         System.out.println(person.getId());
         System.out.println(person.getIdCard());
+
+         */
 
 //-------------------------------all person---------------------------
       /*  Query query=session.createQuery("from Person");
@@ -38,7 +40,24 @@ public class Main {
 
 
         */
+//-------------------------------search by id(get id,name)with where clause--------------------------
+       /* Query query=session.createQuery("select id,name from Person  where id=?1");
+        query.setParameter(1,1);
+        List<Object[]> list=query.list();
+        for (Object[] person : list) {
+            System.out.println(person[0]);
+            System.out.println(person[1]);
+        }
 
+        */
+
+//--------------------------get id,name-------------------------------------------------
+        Query query=session.createQuery("select id,name from Person");
+        List<Object[]> list=query.list();
+        for (Object[] person : list) {
+            System.out.println(person[0]);
+            System.out.println(person[1]);
+        }
 //-------------------------------insert--------------------------------
        /* Query query = session.createQuery("insert into Person (id,address,name) values(?1,?2,?3)");
         query.setParameter(1,3);
@@ -72,16 +91,16 @@ public class Main {
         */
 
 //-----------------------join query----------------------------------
-       /* Query query5=session.createQuery("SELECT p FROM Person p RIGHT JOIN p.idCard ic");
+       /* Query query5=session.createQuery("select p.id,p.name from IdCard ic inner join Person p on ic.id = p.id");
         List<Object[]> list=query5.list();
         for (Object[] arr : list) {
-            String personName = (String) arr[0];
-            String idCardType = (String) arr[1];
-            System.out.println("Person Name: " + personName + ", ID Card Type: " + idCardType);
+            int id = (int) arr[0];
+            String personName = (String) arr[1];
+
+            System.out.println(personName + ", " + id);
         }
 
         */
-
 
 //-------------------------order by---------------------------------
         /*Query query6=session.createQuery("from Person p order by p.id desc");
