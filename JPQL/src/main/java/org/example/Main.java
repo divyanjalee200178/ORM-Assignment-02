@@ -26,6 +26,14 @@ public class Main {
 //-----------------update----------------------------
        //can't apply
 
+//-----------------search by id----------------------------
+       /* Query query=session.createQuery("from Person  where id=?1");
+
+        query.setParameter(1,1);
+        Person person= (Person) query.uniqueResult();
+        System.out.println(person.getId());
+
+        */
 
 //-----------------join queries----------------------------
        /* Query query=session.createQuery("select distinct p from Person p inner join p.idCard ic ");
